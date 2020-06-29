@@ -1,0 +1,37 @@
+@function weight($weight-name){
+    @return map-get($font-weight, $weight-name)
+};
+
+@function size($size){
+    @return map-get($font-size, $size )
+};
+
+@mixin flexCenter($direction: column) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;    
+}
+
+@mixin borderCustom {
+    box-shadow:2px 2px 2px -3px rgba(63, 63, 63, 0.9);
+    border: 1px solid #efefef;
+    border-radius: 4px;
+}
+
+@mixin  Container {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 940px;
+}
+
+@mixin button {
+    background-color: $primary-color;
+}
+
+
+@mixin grid($gap){
+    display: grid;
+    grid-gap: $gap;
+}
+

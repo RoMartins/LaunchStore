@@ -1,0 +1,31 @@
+.button {
+          &.delete{
+            background-color: lightgrey;
+        &:hover{
+            background-color: rgb(231, 7, 7);
+            }   
+    }   
+
+        &.edit{
+            background-color: $second-color ;
+            &:hover{
+                background-color: rgba(41, 79, 248, 0.993);
+        }
+    }
+}
+
+.item {
+
+    span{
+        padding: 4px 16px;
+        background-color: $primary-color;    
+        border-radius: 16px ;
+        color: white;
+        margin-right: 4px;
+        margin-top: 8px;
+        display: inline-block;
+        font-weight: weight(bold);
+        text-transform: uppercase;
+        font-size: 12px;
+    }
+}

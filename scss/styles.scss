@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700,700i&display=swap');
+@import  './variaveis';
+@import './reset';
+@import './mixins';
+@import '../scss/viewsStyle/Create&fields';
+@import '../scss/viewsStyle/viewEdit';
+@import '../scss/viewsStyle/viewFields';
+@import '../scss/viewsStyle/ShowProductPage';
+@import '../scss/viewsStyle/home&Search';
+@import '../scss/viewsStyle/Messages';
+@import '../scss/viewsStyle/MenuAccount';
+@import '../scss/viewsStyle/login';
+
+
+body{
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    background-color: hsl(0, 0%, 98%);
+    display: flex;
+    flex-direction:column ;
+
+    .button {
+    font-weight: weight(bold);
+    background-color: $primary-color;
+    display: block;
+    color: white;
+    margin: 16px 0;
+    padding: 12px 16px;
+    width: 100%;    
+    border-radius: 4px;
+    align-self: flex-end;
+    font-size: size('16');
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    &:hover{
+        background-color: #db7908;
+        }
+    }
+    a {
+        text-decoration: none;
+    }
+    footer {   
+        color: white;
+        width: 100%;
+        padding: 32px 0; 
+        text-align: center;
+        background-color: black;
+        margin-top: auto;
+    }
+    header{    
+        background-color: black;
+        color: white;
+        width: 100%;
+        padding: 32px 0;
+        text-align: center;
+
+        .container {
+           @include Container;
+            display: grid;
+            grid-gap: 24px;
+           grid-template-columns:  220px auto 280px;
+            align-items: center;
+        }
+        a {
+        justify-self: start;
+        }
+    .logo {
+
+        h1 {
+            color: white;
+            font-size: size('36');
+            line-height: 46px;
+        }
+        h2{
+            color: $primary-color;
+            font-size: size('14');
+            letter-spacing: 2px;
+            line-height: 16px;
+
+        }
+    }
+.search {
+
+    input {
+        width: 100%;
+        padding: 8px 16px;
+        border-radius: 2px;
+        font-size: size('16')
+    ;
+
+    }
+}
+    }
+}
+
+nav{
+
+    &.primary{
+
+        ul{
+            @include flexCenter(row);
+            justify-content: space-between ;
+            padding-inline-start: 0px;
+
+        }
+        li a {
+            @include flexCenter(row);
+            color: white;
+            transition: 300ms;
+            &:hover {
+                color: $primary-color;
+            } 
+        } 
+
+        i{
+            margin-right: 8px;
+        }
+    }
+}
