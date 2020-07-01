@@ -20,17 +20,17 @@ module.exports = {
             params.category = category
         }
 
-        results = await ProductModel.search(params)
+        let products = await ProductModel.search(params)
 
         async function getImage(product) {
-            let results = await ProductModel.files(product.id)
-            const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
+            let files = await ProductModel.files(product.id)
+            files = files.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
             
            const File = files[0].replace(/\\/g, '/')
             return File
         }
 
-        const productsPromise = results.rows.map( async product => {
+        const productsPromise = products.map( async product => {
             product.img = await getImage(product)
             product.price = FormatPrice(product.price)
             product.oldPrice = FormatPrice(product.old_price)
@@ -38,7 +38,7 @@ module.exports = {
             return product
         })
 
-        const products = await Promise.all(productsPromise)
+         products = await Promise.all(productsPromise)
 
         const search = {
             term: req.query.filter,

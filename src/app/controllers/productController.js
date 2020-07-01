@@ -7,24 +7,21 @@ const {FormatPrice, date} =  require("../../lib/functions")
 
 module.exports = {
 
-create(req, res){
-    Category.all()
-    .then(function(results) {
+async create(req, res){
 
-        const categories= results.rows;
+    try{
+        const categories = await Category.FindAll()
+
         return res.render("products/create.njk", {categories})
-
-    }).catch(function(err){
-        throw new Error(err)
-    })
-
-
+    }catch(error){
+        console.error(error);
+        
+    }
 },
 
 async show(req, res){
 
-    let results = await ProductModel.find(req.params.id)
-    const product = results.rows[0]
+    const product =  await ProductModel.Find(req.params.id)
 
     if(!product) return res.send("Produto não encontrado")
     
@@ -38,8 +35,8 @@ async show(req, res){
     product.oldPrice = FormatPrice(product.old_price)
     product.price = FormatPrice(product.price)
 
-    results = await ProductModel.files(product.id)
-    const files = results.rows.map(file => ({
+    let files = await ProductModel.files(product.id)
+     files = files.map(file => ({
         ...file,
         src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
     }))
@@ -48,49 +45,59 @@ async show(req, res){
 },
 
 async post(req, res){
-    const keys = Object.keys(req.body)
-    for(key of keys){
-        if(req.body[key] == "") return res.send("Preencha todos os campos")
+
+    try {
+        const keys = Object.keys(req.body)
+        for(key of keys){
+            if(req.body[key] == "") return res.send("Preencha todos os campos")
+        }
+            
+        let {category_id, name, description, old_price,price,quantity, status} = req.body
+
+        price = price.replace(/\D/g,"")
+
+        const productId = await ProductModel.create({
+            category_id,
+            name,
+            user_id : req.session.UserId,
+            description, 
+            old_price: old_price || price,
+            price,
+            quantity,
+            status : status || 1
+        })
+
+        let product_id = productId.rows[0].id
+        if(req.files.length == 0)
+            return res.send("envie ao menos uma foto")
+            
+        const filesPromise = req.files.map(file => File.create({
+           name:file.filename,
+           path:file.path,
+           product_id }))
+           await Promise.all(filesPromise)
+    
+        return res.redirect(`/products/${product_id}`)
+    
+    } catch (error) {
+        console.log(error)
     }
 
-    const {UserId} = req.session
-
-    if(req.files.length == 0)
-        return res.send("envie ao menos uma foto")
-        
-            let results = await ProductModel.create(req.body,UserId)
-            const productId = results.rows[0].id
-            
-
-    const filesPromise = req.files.map(file => File.create({
-       ...file,
-       product_id: productId }))
-       await Promise.all(filesPromise)
-//get categories
-    results = await Category.all()
-    const categories = results.rows
-
-
-
-    return res.redirect(`/products/${productId}`)
-
+   
 },
 
     async edit(req, res) {
-        let results = await ProductModel.find(req.params.id)
-        const product = results.rows[0]
+        const product = await ProductModel.Find(req.params.id)
     
         if(!product) return res.send("Product not found")
 
         product.price = FormatPrice(product.price)
         product.oldprice = FormatPrice(product.old_price)
 
-        results = await Category.all()
-        const categories = results.rows
+        const categories = await Category.FindAll()
 
         //get images
-        results = await ProductModel.files(product.id)
-        let files = results.rows
+        let files = await ProductModel.files(product.id)
         files = files.map(file => ({
             ...file,
             src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
@@ -100,6 +107,9 @@ async post(req, res){
 },
 
 async put(req,res) {
+
+    try {
+    
     const keys = Object.keys(req.body)
     for(key of keys){
         if(req.body[key] == "" && key!= "removed_files") return res.send("Preencha todos os campos")
@@ -125,17 +135,29 @@ async put(req,res) {
 
     req.body.price = req.body.price.replace(/\D/g,"")
     if(req.body.old_price != req.body.price) {
-        const OldProduct = await ProductModel.find(req.body.id)
+        const OldProduct = await ProductModel.Find(req.body.id)
 
-        req.body.old_price = OldProduct.rows[0].price
+        req.body.old_price = OldProduct.price
     } 
 
+    let {category_id, name, description, old_price,price,quantity, status} = req.body
 
-
-    await ProductModel.update(req.body)
+    await ProductModel.update(req.body.id, {
+        category_id,
+        name,
+        description, 
+        old_price,
+        price,
+        quantity,
+        status
+    })
 
     return res.redirect(`products/${req.body.id}`)
-    
+        
+} catch (error) {
+    console.error(error);
+           
+}
   
     },
 

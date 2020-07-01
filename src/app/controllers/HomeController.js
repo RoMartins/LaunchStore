@@ -6,14 +6,13 @@ const File = require("../models/FileModel")
 
 module.exports = {
     async index(req, res){
-        let results = await ProductModel.all()
-        const products = results.rows
+        const products =await ProductModel.FindAll()
 
         if(!products) return res.send("Produto não encontrado")
     
         async function getImage(product) {
-            let results = await ProductModel.files(product.id)
-            const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
+            let files = await ProductModel.files(product.id)
+             files = files.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
             
            const File = files[0].replace(/\\/g, '/')
             return File
