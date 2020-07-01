@@ -60,7 +60,9 @@ const Base = {
                 VALUES (${values.join(',')})
                 RETURNING id`
 
-            return db.query(query)
+            results = await db.query(query)
+            return results.rows[0].id
+
         }catch(error){
             console.error(error);
             

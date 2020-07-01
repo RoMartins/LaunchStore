@@ -80,3 +80,6 @@ FOREIGN KEY ("user_id")
 references "users"("id")
 on delete cascade;
 
+ALTER SEQUENCE products_id_seq RESTART WITH 1;
+ALTER SEQUENCE users_id_seq RESTART WITH 1;
+ALTER SEQUENCE files_id_seq RESTART WITH 1;
