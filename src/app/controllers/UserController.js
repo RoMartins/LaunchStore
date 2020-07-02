@@ -1,7 +1,7 @@
 const {hash} = require('bcryptjs');
 const fs = require('fs')
 
-const Product =   require ('../models/productModel') 
+const Product =  require ('../models/productModel') 
 const User = require ('../models/UserModel') 
 const {FormatCpfCnpj, FormatCep } = require ('../../lib/functions')
 
@@ -28,7 +28,7 @@ module.exports = {
            })
 
         
-           req.session.UserId = userId.rows[0].id
+           req.session.UserId = userId
         
            return res.redirect('/users') 
 
@@ -89,7 +89,7 @@ module.exports = {
         
             // dos produtos pegar as imagens
             const allFilesProduct = products.map(product =>
-                productModel.files(product.id))
+                Product.files(product.id))
             
             let promiseResults = await Promise.all(allFilesProduct)    
            
@@ -97,8 +97,8 @@ module.exports = {
             await User.delete(req.body.id)
             req.session.destroy()
 
-            promiseResults.map(results => {
-                results.rows.map(file => {
+            promiseResults.map(filesProduct => {
+                filesProduct.map(file => {
                     try {
         
                         fs.unlinkSync(file.path)
@@ -113,8 +113,8 @@ module.exports = {
                 success:"Conta deletada com sucesso"
             })
 
-        }catch{
-            console.log(err)
+        }catch(err){
+            console.error(err)
             return res.render("user/index", {
                 error: 'Erro ao deletar conta'})
             

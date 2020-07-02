@@ -1,5 +1,8 @@
+const fs = require('fs')
+
 const Category = require("../models/Category")
 const ProductModel = require("../models/productModel")
+
 const File = require("../models/FileModel")
 const {FormatPrice, date} =  require("../../lib/functions")
 
@@ -67,17 +70,16 @@ async post(req, res){
             status : status || 1
         })
 
-        let product_id = productId.rows[0].id
         if(req.files.length == 0)
             return res.send("envie ao menos uma foto")
             
         const filesPromise = req.files.map(file => File.create({
            name:file.filename,
            path:file.path,
-           product_id }))
+           product_id:productId }))
            await Promise.all(filesPromise)
     
-        return res.redirect(`/products/${product_id}`)
+        return res.redirect(`/products/${productId}`)
     
     } catch (error) {
         console.log(error)
@@ -162,7 +164,20 @@ async put(req,res) {
     },
 
 async delete(req,res){
+
+    const files = await ProductModel.files(req.body.id)
+  
     await ProductModel.delete(req.body.id)
+
+    files.map(file =>{
+        try {
+                fs.unlinkSync(file.path)
+        } catch (error) {
+            console.error(error);
+            
+        }
+    })
+    
 
     return res.redirect('/products/create')
 }    
