@@ -33,11 +33,11 @@
                 style = "background-image: url({{product.img}})"
             >
             </div>
-            {% if product.oldPrice != product.price %}
-                <div class="old-price">{{product.oldPrice}}</div>
+            {% if product.FormatOldPrice != product.FormatPrice %}
+                <div class="old-price">{{product.FormatOldPrice}}</div>
             {% endif %} 
 
-            <p>{{product.price}}</p>
+            <p>{{product.FormatPrice}}</p>
             <h4>{{product.name}}</h4>
 
             <a href="/products/{{product.id}}" class="button">Ver produto</a>

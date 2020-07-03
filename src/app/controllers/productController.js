@@ -4,7 +4,7 @@ const Category = require("../models/Category")
 const ProductModel = require("../models/productModel")
 
 const File = require("../models/FileModel")
-const {FormatPrice, date} =  require("../../lib/functions")
+const LoadProductsService = require("../services/LoadProductService")
 
 
 
@@ -24,27 +24,14 @@ async create(req, res){
 
 async show(req, res){
 
-    const product =  await ProductModel.Find(req.params.id)
+    const product =  await LoadProductsService.load('product',{where: {id:req.params.id}})
 
-    if(!product) return res.send("Produto não encontrado")
+    if(!product) return res.render("products/show",{
+        error:"Produto não encontrado"})
     
-    const { day, hour, minutes, mounth} = date(product.updated_at)
 
-    product.published = {
-        day :`${day}/${mounth}`,
-        hour: `${hour}h${minutes}`
-    }
 
-    product.oldPrice = FormatPrice(product.old_price)
-    product.price = FormatPrice(product.price)
-
-    let files = await ProductModel.files(product.id)
-     files = files.map(file => ({
-        ...file,
-        src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-    }))
-
-    return res.render("products/show", {product, files})
+    return res.render("products/show", {product} )
 },
 
 async post(req, res){
@@ -89,23 +76,15 @@ async post(req, res){
 },
 
     async edit(req, res) {
-        const product = await ProductModel.Find(req.params.id)
-    
-        if(!product) return res.send("Product not found")
+        const product =  await LoadProductsService.load('product',{where: {id:req.params.id}})
 
-        product.price = FormatPrice(product.price)
-        product.oldprice = FormatPrice(product.old_price)
+    if(!product) return res.render("products/show",{
+        error:"Produto não encontrado"})
 
         const categories = await Category.FindAll()
 
-        //get images
-        let files = await ProductModel.files(product.id)
-        files = files.map(file => ({
-            ...file,
-            src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-        }))
 
-        return res.render(`products/edit.njk` , {product, categories, files})
+        return res.render(`products/edit.njk` , {product, categories})
 },
 
 async put(req,res) {

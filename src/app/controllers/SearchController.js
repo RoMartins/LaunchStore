@@ -1,47 +1,27 @@
 const {FormatPrice} = require('../../lib/functions')
 
+const LoadProductsService = require("../services/LoadProductService")
 const Category = require("../models/Category")
 const ProductModel = require("../models/productModel")
 const File = require("../models/FileModel")
+const { product } = require('../services/LoadProductService')
 
 module.exports = {
     async index(req, res){
       
-        let results,
-            params = {}
         
-        const {filter, category} = req.query
+        let {filter, category} = req.query
         
-        if(!filter) return res.redirect("/")
-        
-        params.filter = filter
+        if(!filter || filter.toLowerCase()== 'toda a loja')  filter = null
+    
+        let products = await ProductModel.search(filter, category)
 
-        if(category) {
-            params.category = category
-        }
-
-        let products = await ProductModel.search(params)
-
-        async function getImage(product) {
-            let files = await ProductModel.files(product.id)
-            files = files.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
-            
-           const File = files[0].replace(/\\/g, '/')
-            return File
-        }
-
-        const productsPromise = products.map( async product => {
-            product.img = await getImage(product)
-            product.price = FormatPrice(product.price)
-            product.oldPrice = FormatPrice(product.old_price)
-            
-            return product
-        })
+        const productsPromise = products.map(LoadProductsService.format)
 
          products = await Promise.all(productsPromise)
 
         const search = {
-            term: req.query.filter,
+            term: filter || 'Toda a loja',
             total : products.length
         }
 

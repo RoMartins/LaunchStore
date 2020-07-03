@@ -10,7 +10,6 @@ async function getImages(productId) {
      }))
         return files
  
-        //const File = files[0]
 }
 
 async function format(product){
@@ -18,7 +17,7 @@ async function format(product){
         product.img = files[0].src.replace(/\\/g, '/')
         product.FormatPrice = FormatPrice(product.price)
         product.FormatOldPrice = FormatPrice(product.old_price)
-
+        product.files = files
         const { day, hour, minutes, mounth} = date(product.updated_at)
         
         product.published = {
@@ -40,7 +39,7 @@ const LoadService = {
         
         return format(product)
         
-        } catch (error) {
+         } catch (error) {
             console.error(error);
             
         }
