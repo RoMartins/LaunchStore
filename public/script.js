@@ -45,6 +45,22 @@ const Validate = {
             error,
             value
         }
+    },
+    allFields(e){
+        let inputs = document.querySelectorAll('.item input, .item textarea, .item select')
+
+        for(input of inputs){
+            if(input.value == ""){
+                const message = document.createElement('div')
+                message.classList.add('messages')
+                message.classList.add('error')
+                message.innerHTML = "Preencha todos os campos!"
+                document.querySelector('body').append(message)
+                //alert("prencha todos os campos")
+                e.preventDefault()
+            } 
+        }
+
     }
 }
 

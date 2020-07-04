@@ -665,6 +665,110 @@ section.login .fieldsLogin .item textarea {
   border-radius: 4px;
 }
 
+section {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 940px;
+  padding: 32px 24px;
+  margin: 32px auto;
+}
+
+section.ads {
+  -webkit-box-shadow: 2px 2px 2px -3px rgba(63, 63, 63, 0.9);
+          box-shadow: 2px 2px 2px -3px rgba(63, 63, 63, 0.9);
+  border: 1px solid #efefef;
+  border-radius: 4px;
+  max-width: 700px;
+}
+
+section.ads h2 {
+  margin-bottom: 20px;
+  color: #fd951f;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+section.ads .items {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  grid-gap: 32px;
+}
+
+section.ads .items .product {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 116px 1fr;
+      grid-template-columns: 116px 1fr;
+  color: #444;
+}
+
+section.ads .items .product .image {
+  width: 100px;
+  height: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-box-shadow: 2px 2px 2px -3px rgba(63, 63, 63, 0.9);
+          box-shadow: 2px 2px 2px -3px rgba(63, 63, 63, 0.9);
+  border: 1px solid #efefef;
+  border-radius: 4px;
+}
+
+section.ads .items .product .info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100px;
+}
+
+section.ads .items .product .info .name {
+  font-size: 1.6em;
+  color: #4a4a4a;
+  margin-bottom: 4px;
+}
+
+section.ads .items .product .info .price {
+  font-size: 1.2em;
+  color: #4a4a4a;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+section.ads .items .product .info .published {
+  font-size: 1em;
+  color: #4a4a4a;
+}
+
+section.ads .items .product .info .actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: auto;
+  width: 90px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+section.ads .items .product .info .actions a {
+  color: #fd951f;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  padding: 4px;
+}
+
+section.ads .items .product .info .actions :hover {
+  font-weight: 700;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   min-height: 100vh;

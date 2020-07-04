@@ -3,7 +3,9 @@ const fs = require('fs')
 
 const Product =  require ('../models/productModel') 
 const User = require ('../models/UserModel') 
-const {FormatCpfCnpj, FormatCep } = require ('../../lib/functions')
+const {FormatCpfCnpj, FormatCep } = require ('../../lib/functions');
+const  LoadProductService = require('../services/LoadProductService')
+
 
 module.exports = {
     registerForm(req,res) {
@@ -121,4 +123,11 @@ module.exports = {
     }
 
 },
+    async ads(req,res) {
+            
+        const products = await LoadProductService.load('products',{
+            where:{ user_id: req.session.UserId}
+        })
+        return res.render("user/ads", {products})
+    }
 }
