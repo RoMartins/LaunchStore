@@ -86,7 +86,10 @@ async put(req,res) {
     
         if(req.files.length != 0) {
             const newFilePromise = req.files.map(file => 
-                File.create({...file, product_id: req.body.id}))
+                File.create({ 
+                    name:file.filename,
+                    path:file.path, 
+                    product_id: req.body.id}))
     
                 await Promise.all(newFilePromise)
         }
