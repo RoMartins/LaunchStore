@@ -9,6 +9,13 @@
     margin: 32px auto;
     @include borderCustom;
 
+    .unavailable{
+        font-size: size('14');
+        color: #ccc;
+        font-weight: bold;
+        background: #eee;
+        padding: 8px 16px ;
+    }
     .gallery {
         width:100%;
         img {
@@ -129,7 +136,7 @@
         .old {
             text-decoration: line-through;
             color: #999;    
-            font-size: size('14');
+            font-size: size('12');
             font-weight: normal;
             margin-left: 8px;
             margin-right: auto;

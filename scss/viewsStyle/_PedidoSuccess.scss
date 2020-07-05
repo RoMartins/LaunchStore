@@ -1,0 +1,24 @@
+.success-lottie{
+    @include Container;
+    @include flexCenter;
+    max-width: 700px;
+    padding: 32px 0px;
+    margin: 32px auto;
+    
+    p{
+        font-size: size('14');
+        margin: 6px;
+        
+    }
+    a{
+        color: #eee;
+        @include borderCustom;
+        padding: 8px 16px;
+        text-decoration: none;
+        background-color: $primary-color;
+    }
+    .lottie{
+    width: 200px;
+}
+
+}

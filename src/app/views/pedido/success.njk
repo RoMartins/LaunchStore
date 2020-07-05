@@ -1,0 +1,24 @@
+{% extends 'layout.njk' %}
+
+{% block content %}
+    <div class="success-lottie">
+        <div class="lottie"></div>
+        <h2>Pedido Realizado com Sucesso!</h2>
+        <p>
+            Aguarde a resposta do vendedor no seu email cadastrado.
+        </p>
+        <a  href="/products/search" >COMPRAR MAIS</a>
+    </div>
+
+    <script src="/lottie.min.js"></script>
+    <script>
+        const element = document.querySelector('.lottie')
+        lottie.loadAnimation({
+            container: element, // the dom element that will contain the animation
+            renderer: 'svg',
+            loop: false,
+            autoplay: true,
+            path: '/1708-success.json' // the path to the animation json
+        });
+    </script>
+{% endblock content %}

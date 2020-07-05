@@ -2,6 +2,7 @@
  const routes = express.Router()
  const SessionController = require('../app/controllers/SessionController')
  const UserController = require('../app/controllers/UserController')
+ const PedidosController = require('../app/controllers/PedidosController')
  const UserValidator = require('../app/validators/user')
  const SessionValidator = require('../app/validators/session')
  const {isLogged, Permission} = require('../app/middlewares/session')
@@ -25,7 +26,9 @@ routes.put('/',UserValidator.update, UserController.update)
 routes.delete('/', UserController.delete)
 
 routes.get('/ads',UserController.ads )
-routes.get('/selling',)
+
+routes.post('/pedidos', Permission,PedidosController.post)
+routes.get('/pedidos', (req,res) => res.render('pedido/error') )
 
 
  module.exports = routes
