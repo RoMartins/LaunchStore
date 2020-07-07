@@ -821,6 +821,164 @@ section.ads .items .product .info .actions :hover {
   width: 200px;
 }
 
+section {
+  -webkit-box-shadow: 2px 2px 2px -3px rgba(63, 63, 63, 0.9);
+          box-shadow: 2px 2px 2px -3px rgba(63, 63, 63, 0.9);
+  border: 1px solid #efefef;
+  border-radius: 4px;
+}
+
+section h2 {
+  font-size: 1.6em;
+  color: #fd951f;
+  margin-bottom: 20px;
+}
+
+section .cartHeader {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 100px 100px 30px;
+      grid-template-columns: 1fr 100px 100px 30px;
+  grid-gap: 16px;
+  margin-bottom: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  font-size: 1.4em;
+  color: #777;
+}
+
+section .cartHeader p:nth-child(2) {
+  text-align: right;
+}
+
+section .cartHeader p:nth-child(3) {
+  text-align: center;
+}
+
+section .items {
+  font-size: 1.6em;
+}
+
+section .items .Cart {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 100px 100px 30px;
+      grid-template-columns: 1fr 100px 100px 30px;
+  grid-gap: 16px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #eee;
+  padding: 16px 0;
+}
+
+section .items .Cart > a {
+  color: black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+section .items .Cart > a img {
+  width: 50px;
+  height: 50px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-right: 16px;
+  -webkit-box-shadow: 2px 2px 2px -3px rgba(63, 63, 63, 0.9);
+          box-shadow: 2px 2px 2px -3px rgba(63, 63, 63, 0.9);
+  border: 1px solid #efefef;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+
+section .items:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+section .items form button {
+  background-color: white;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+section .items form button.delete {
+  color: red;
+}
+
+section .items .quantity-control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+section .items .quantity {
+  margin: 0 6px;
+}
+
+section .items .price {
+  text-align: right;
+}
+
+.total {
+  text-align: right;
+  font-weight: 700;
+}
+
+.total p {
+  font-size: 1.2em;
+  text-transform: uppercase;
+  color: #777;
+  margin-bottom: 4px;
+}
+
+.total span {
+  font-size: 2.4em;
+}
+
+.actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.actions .buttonCart {
+  margin-top: 32px;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  background-color: #fd951f;
+  padding: 8px 16px;
+  width: 240px;
+  border-radius: 8px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.actions .buttonCart.order {
+  background-color: #00b140;
+}
+
+.actions .buttonCart:hover {
+  -webkit-filter: brightness(1.2);
+          filter: brightness(1.2);
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   min-height: 100vh;

@@ -61,38 +61,34 @@ const Cart = {
         // atualiza carrinho
         this.total.quantity--
         this.total.price -= inCart.product.price
-        this.formatPrice = FormatPrice(this.total.price)
+        this.total.formatPrice = FormatPrice(this.total.price)
 
-        
+        if(inCart.quantity ==0){
+            const itemIndex = this.items.indexOf(inCart)
+            this.items.splice(itemIndex, 1)
+            return this
+        // Outra forma
+        // this.items = this.items.filter(item => item.product.id != inCart.product.id) return this
+        }
+
+        return this
+
+
     },
-    delete(productId){},
+    delete(productId){
+        const inCart = this.items.find(item => item.product.id == productId)
+        if(!inCart) return this
+
+        if(this.items.length >0) {
+            this.total.quantity -= inCart.quantity
+            this.total.price -= (inCart.product.price * inCart.quantity)
+            this.total.formatPrice = FormatPrice(this.total.price)
+        }
+        this.items = this.items.filter(item => inCart.product.id != item.product.id)
+        
+        return this
+    },
 }
-const product = {
-    id: 1 ,
-    price: 200,
-    quantity: 2,
-}
-
-const product2 = {
-    id: 2 ,
-    price: 300,
-    quantity: 2,
-}
-    console.log('first');
-    let oldcart = Cart.init().addOne(product)
-    console.log(oldcart);
-    
-    console.log('second');
-     oldcart = Cart.init(oldcart).addOne(product)
-    console.log(oldcart);
-
-    console.log('third');
-     oldcart = Cart.init(oldcart).addOne(product2)
-    console.log(oldcart);
-
-
-    
-
 
 
 module.exports = Cart

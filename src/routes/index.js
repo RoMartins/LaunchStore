@@ -5,12 +5,15 @@ const SearchController = require('../app/controllers/SearchController')
 const HomeController = require('../app/controllers/HomeController')
 const users = require('./users')
 const products = require('./products')
+const  cart = require('./cart')
+
 
 routes.get('/products/search', SearchController.index)
 routes.get('/' , HomeController.index)
 
 routes.use('/products', products)
 routes.use('/users', users)
+routes.use('/cart', cart)
 
 
 

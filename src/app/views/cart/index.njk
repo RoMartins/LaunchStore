@@ -1,0 +1,60 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+<section class="container">
+    <h2>CARRINHO</h2>
+    
+    <div class="cartHeader">
+        <p>Produto</p>
+        <p>Preço</p>
+        <p>Qtd.</p>
+    </div>
+
+    <div class="items">
+        {% for item in cart.items %}
+            <div class="Cart">
+                <a href="/products/{{item.product.id}}">
+                    <img src="{{item.product.img}}" alt="">
+                    <span class="title">{{item.product.name}}</span>
+                </a>
+
+                <span class="price">{{item.formatPrice}}</span>
+                <div class="quantity-control">
+                    <form action="/cart/{{item.product.id}}/remove" method="post">
+                        <button class="remove">
+                        <i class="material-icons">remove_circle_outline</i>
+                        </button>
+                    </form>
+
+                    <div class="quantity">{{item.quantity}}</div>
+
+                    <form action="/cart/{{item.product.id}}/add" method="post">
+                        <button class="add">
+                        <i class="material-icons">add_circle_outline</i>
+                        </button>
+                    </form>
+                </div>
+                <form class="trash" action="/cart/{{item.product.id}}/delete" method="post">
+                    <button class="delete">
+                    <i class="material-icons">delete</i>
+                    </button>
+                </form>
+            </div>
+    </div>
+
+        {% endfor %}
+        <div class="total">
+            <p>Total</p>
+            <span>{{cart.total.formatPrice}}</span>
+        </div>
+        <div class="actions">
+            <a class="buttonCart" href="/products/search">Continuar Comprando</a>
+            <form  action="/orders" method="post">
+                <button class="buttonCart order">
+
+                Realizar Pedido
+                </button>
+            </form>
+        </div>
+</section>
+{% endblock content %}
