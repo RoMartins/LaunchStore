@@ -1,0 +1,27 @@
+.menuPrincipal{
+
+    .primary{
+
+        .cart{
+            a{
+                position: relative;
+                span{
+                    background-color: red;
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    font-size: size('12');
+                    font-weight: bold;
+                    @include flexCenter;
+                    position: absolute;
+                    top:12px;
+                    right: 0;
+                    &:hover{
+                        background-color: white;    
+                        color: black;
+                }
+                }
+            }
+        }
+    }
+}

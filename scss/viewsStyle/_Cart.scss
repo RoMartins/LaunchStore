@@ -1,4 +1,11 @@
 section{
+    .cartEmpty{
+        text-align: center;
+        p{
+            font-size: size('16');
+        margin-bottom: 20px;
+        }   
+    }
     @include borderCustom;
     h2{
         font-size: size('16');
@@ -14,7 +21,6 @@ section{
         font-weight: weight(bold);
         letter-spacing: 0.2px;
         text-transform: uppercase;
-        font-size: size('14');
         color: #777;
         
             p:nth-child(2){
@@ -24,7 +30,7 @@ section{
                 text-align: center;
         }
     }
-    .items{
+    .itemsCart{
         font-size: size('16');
         
         .Cart{
@@ -96,23 +102,23 @@ section{
         display: flex;
         justify-content: space-between;
         
-        .buttonCart{
-            margin-top: 32px;
-            font-weight: weight(bold);
-            font-size: 14px;
-            font-family: 'Roboto', sans-serif;
-            color: white;
-            background-color: $primary-color;
-            padding: 8px 16px;
-            width: 240px;
-            border-radius: 8px;
-            text-align: center;
-            text-transform: uppercase;
-             &.order{
-            background-color: rgb(0,177,64);
-
-             }&:hover{
-                 filter: brightness(1.2);
-             }
-        }
-}
+    }
+            .buttonCart{
+                margin-top: 32px;
+                font-weight: weight(bold);
+                font-size: 14px;
+                font-family: 'Roboto', sans-serif;
+                color: white;
+                background-color: $primary-color;
+                padding: 8px 16px;
+                width: 240px;
+                border-radius: 8px;
+                text-align: center;
+                text-transform: uppercase;
+                 &.order{
+                background-color: rgb(0,177,64);
+    
+                 }&:hover{
+                     filter: brightness(1.2);
+                 }
+            }

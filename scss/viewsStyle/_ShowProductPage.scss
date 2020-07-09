@@ -2,6 +2,7 @@
 .product-single {
     
     @include Container;
+    max-width: 1030px;
     @include grid(24px);
     grid-template-columns: 1fr 1fr;
     background-color: white;

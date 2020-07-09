@@ -70,10 +70,9 @@
                         {% elseif product.quantify == 0 %}
                         <p class="esgotado">ESGOTADO</p>
                         {% else %}
-                        <form action="/users/pedidos" method="post">
-                            <input type="hidden" name="id" value="{{product.id}}">
+                        <form action="/cart/{{product.id}}/add" method="post">
                             <button class="button">
-                            Comprar
+                            Adicionar ao Carrinho
                             </button>
                         </form>
                     {% endif %}

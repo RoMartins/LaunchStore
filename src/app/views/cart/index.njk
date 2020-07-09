@@ -1,7 +1,15 @@
 {% extends "layout.njk" %}
 
 {% block content %}
+
 <section class="container">
+
+    {% if (cart.items) and (cart.items.length < 1)%}
+    <div class="cartEmpty">
+        <p>Seu carrinho está vazio</p>
+        <a href="/products/search" class="buttonCart">Comprar</a>
+    </div>
+    {%else%}
     <h2>CARRINHO</h2>
     
     <div class="cartHeader">
@@ -10,7 +18,7 @@
         <p>Qtd.</p>
     </div>
 
-    <div class="items">
+    <div class="itemsCart">
         {% for item in cart.items %}
             <div class="Cart">
                 <a href="/products/{{item.product.id}}">
@@ -56,5 +64,6 @@
                 </button>
             </form>
         </div>
+    {% endif %}
 </section>
 {% endblock content %}

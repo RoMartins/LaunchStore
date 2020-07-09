@@ -248,6 +248,7 @@ section.form .fields .item textarea {
   width: 90%;
   margin: 0 auto;
   max-width: 940px;
+  max-width: 1030px;
   display: -ms-grid;
   display: grid;
   grid-gap: 24px;
@@ -828,6 +829,15 @@ section {
   border-radius: 4px;
 }
 
+section .cartEmpty {
+  text-align: center;
+}
+
+section .cartEmpty p {
+  font-size: 1.6em;
+  margin-bottom: 20px;
+}
+
 section h2 {
   font-size: 1.6em;
   color: #fd951f;
@@ -844,7 +854,6 @@ section .cartHeader {
   font-weight: 700;
   letter-spacing: 0.2px;
   text-transform: uppercase;
-  font-size: 1.4em;
   color: #777;
 }
 
@@ -856,11 +865,11 @@ section .cartHeader p:nth-child(3) {
   text-align: center;
 }
 
-section .items {
+section .itemsCart {
   font-size: 1.6em;
 }
 
-section .items .Cart {
+section .itemsCart .Cart {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 100px 100px 30px;
@@ -874,7 +883,7 @@ section .items .Cart {
   padding: 16px 0;
 }
 
-section .items .Cart > a {
+section .itemsCart .Cart > a {
   color: black;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -884,7 +893,7 @@ section .items .Cart > a {
           align-items: center;
 }
 
-section .items .Cart > a img {
+section .itemsCart .Cart > a img {
   width: 50px;
   height: 50px;
   -o-object-fit: cover;
@@ -897,21 +906,21 @@ section .items .Cart > a img {
   margin-left: 8px;
 }
 
-section .items:hover {
+section .itemsCart:hover {
   background: rgba(0, 0, 0, 0.02);
 }
 
-section .items form button {
+section .itemsCart form button {
   background-color: white;
   border-radius: 100%;
   cursor: pointer;
 }
 
-section .items form button.delete {
+section .itemsCart form button.delete {
   color: red;
 }
 
-section .items .quantity-control {
+section .itemsCart .quantity-control {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -923,11 +932,11 @@ section .items .quantity-control {
           justify-content: center;
 }
 
-section .items .quantity {
+section .itemsCart .quantity {
   margin: 0 6px;
 }
 
-section .items .price {
+section .itemsCart .price {
   text-align: right;
 }
 
@@ -956,7 +965,7 @@ section .items .price {
           justify-content: space-between;
 }
 
-.actions .buttonCart {
+.buttonCart {
   margin-top: 32px;
   font-weight: 700;
   font-size: 14px;
@@ -970,13 +979,47 @@ section .items .price {
   text-transform: uppercase;
 }
 
-.actions .buttonCart.order {
+.buttonCart.order {
   background-color: #00b140;
 }
 
-.actions .buttonCart:hover {
+.buttonCart:hover {
   -webkit-filter: brightness(1.2);
           filter: brightness(1.2);
+}
+
+.menuPrincipal .primary .cart a {
+  position: relative;
+}
+
+.menuPrincipal .primary .cart a span {
+  background-color: red;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  top: 12px;
+  right: 0;
+}
+
+.menuPrincipal .primary .cart a span:hover {
+  background-color: white;
+  color: black;
 }
 
 body {
