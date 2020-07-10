@@ -1,0 +1,72 @@
+.itemOrder{
+    @include grid(32px);
+    grid-template-columns: 1fr auto auto 100px;
+    align-items: center;
+    margin: 16px 0;
+    padding: 8px 16px;
+    &:hover{
+        background-color: #eee;
+    }
+    & >div:nth-child(1){
+        @include flexCenter(row);
+        justify-content: start;
+        .info{
+            margin-left: 16px;
+            color:#555;
+            .title{
+                font-size: size('16');
+                margin-bottom: 4px;
+                font-weight: weight(bold);   
+
+            }
+            .price{
+                font-size: size('14');
+                margin-bottom: 20px;
+                font-weight: 400;   
+
+                
+            }
+            .updateAt{
+                font-size: size('12');
+                margin-top: auto;
+                margin-bottom: 0;
+                font-weight: weight(300);   
+            }
+    }
+    }
+    img{
+        width: 75px;
+        height: 75px;
+        @include borderCustom;
+    }
+    .status{
+        justify-self: center;
+        font-size: size('12');
+        text-transform: uppercase;
+        border-radius: 16px;
+        padding: 4px 12px;
+        color: white;
+        &.open{
+            background-color:rgb(77, 247, 238);
+        }
+        &.sold{
+            background-color:rgb(17, 187, 54);
+        }
+        &.canceled{
+            background-color:red;
+        }
+    }
+    .Pricetotal{
+    font-size: size('14');
+    }
+    .quantity{
+    font-size: size('14');
+    }
+}
+
+
+
+
+
+
+

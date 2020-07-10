@@ -25,7 +25,7 @@ const Base = {
 
         this.table = table
 
-        return this
+         return this
 
     },
     async Find(id) {

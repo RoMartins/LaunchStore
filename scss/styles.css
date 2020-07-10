@@ -797,6 +797,10 @@ section.ads .items .product .info .actions :hover {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-shadow: 2px 2px 2px -3px rgba(63, 63, 63, 0.9);
+          box-shadow: 2px 2px 2px -3px rgba(63, 63, 63, 0.9);
+  border: 1px solid #efefef;
+  border-radius: 4px;
   max-width: 700px;
   padding: 32px 0px;
   margin: 32px auto;
@@ -1020,6 +1024,104 @@ section .itemsCart .price {
 .menuPrincipal .primary .cart a span:hover {
   background-color: white;
   color: black;
+}
+
+.itemOrder {
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 32px;
+  -ms-grid-columns: 1fr auto auto 100px;
+      grid-template-columns: 1fr auto auto 100px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 16px 0;
+  padding: 8px 16px;
+}
+
+.itemOrder:hover {
+  background-color: #eee;
+}
+
+.itemOrder > div:nth-child(1) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+}
+
+.itemOrder > div:nth-child(1) .info {
+  margin-left: 16px;
+  color: #555;
+}
+
+.itemOrder > div:nth-child(1) .info .title {
+  font-size: 1.6em;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.itemOrder > div:nth-child(1) .info .price {
+  font-size: 1.4em;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.itemOrder > div:nth-child(1) .info .updateAt {
+  font-size: 1.2em;
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+.itemOrder img {
+  width: 75px;
+  height: 75px;
+  -webkit-box-shadow: 2px 2px 2px -3px rgba(63, 63, 63, 0.9);
+          box-shadow: 2px 2px 2px -3px rgba(63, 63, 63, 0.9);
+  border: 1px solid #efefef;
+  border-radius: 4px;
+}
+
+.itemOrder .status {
+  -ms-grid-column-align: center;
+      justify-self: center;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  border-radius: 16px;
+  padding: 4px 12px;
+  color: white;
+}
+
+.itemOrder .status.open {
+  background-color: #4df7ee;
+}
+
+.itemOrder .status.sold {
+  background-color: #11bb36;
+}
+
+.itemOrder .status.canceled {
+  background-color: red;
+}
+
+.itemOrder .Pricetotal {
+  font-size: 1.4em;
+}
+
+.itemOrder .quantity {
+  font-size: 1.4em;
 }
 
 body {

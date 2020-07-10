@@ -1,7 +1,11 @@
 
 const LoadProductsService = require("../services/LoadProductService")
 const User = require ('../models/UserModel') 
+const Order = require ('../models/order') 
+
 const mailer = require("../../lib/mailer")
+const Cart = require("../../lib/cart")
+const { FormatPrice, date } = require("../../lib/functions")
 
 const email = (seller, product,buyer) => `
 <h2> Olá ${seller.name} </h2>
@@ -23,14 +27,39 @@ const email = (seller, product,buyer) => `
 module.exports = {
     async post(req, res){
         try {
-            //pegar dados do produto
-            const  product = await LoadProductsService.load('product', {where:{
-                id : req.body.id
-            }})
-            //dados do vendedor
-            const seller = await User.FindOne({where: {id: product.user_id}})
-            // dados do comprador
-            const buyer = await User.FindOne({where: {id: req.session.UserId}})
+            //pegar os produtos do carrinho
+            const cart = Cart.init(req.session.cart)
+
+            const buyer_id = req.session.UserId
+            const filterItems = cart.items.filter( item => item.product.user_id != buyer_id )
+            // criar o pedido
+            const createOrdersPromisse= filterItems.map( async item =>{
+                let {product, price: total, quantity} = item
+                const {price, id:product_id, user_id: seller_id} = product
+                const status = "open"
+
+                const order = await Order.create({
+                    seller_id,
+                    total,
+                    quantity,
+                    status,
+                    buyer_id,
+                    product_id,
+                    price
+                })
+
+                
+                //pegar dados do produto
+                product = await LoadProductsService.load('product', {where:{
+                    id : product_id
+                }})
+
+                //dados do vendedor
+                const seller = await User.FindOne({where: {id: seller_id}})
+
+                // dados do comprador
+                const buyer = await User.FindOne({where: {id: buyer_id}})
+
             //enviar email com dados da compra para o vendedor
             await mailer.sendMail({
                 to: seller.email,
@@ -38,21 +67,59 @@ module.exports = {
                 subject: 'Novo pedido de compra',
                 html: email(seller, product, buyer),
             })
+            return order
+        })
+        await Promise.all(createOrdersPromisse)
+
+        //limpa o carrinho 
+        delete req.session.cart
+            Cart.init()
+
             // notificar o usúario com alguma mensagem
             return res.render('pedido/success')
         } catch (error) {
             
             console.error(error);
             return res.render('pedido/error')
-
+            
             
         }
+    },
+    async index(req,res){
+        //pegar id do comprador
+     const {UserId: buyer_id} = req.session
+        //pegar pedido
+        let orders = await Order.FindAll({where : {buyer_id : buyer_id}})
 
+        const ordersPromise = orders.map(async order =>{
+            //detalhe do produto
+            order.product = await LoadProductsService.load('product', {where:{ id: order.product_id}})
+            //detalhe do comprador
+            order.buyer = await  User.Find(buyer_id)
+            //detalhe do vendedor
+            order.seller = await User.FindOne({
+                where:{id: order.seller_id}
+            })
+            //formatação de preço
+            order.FormatPrice = FormatPrice(order.price) 
+            order.FormatTotal = FormatPrice(order.total)
 
-        if(!products) return res.send("Produto não encontrado")
-    
-      
+            //formatação de status
+            const status ={
+                open:'Aberto',
+                sold:'Vendido',
+                canceled:'Cancelado'
+            }
+            order.FormatStatus = status[order.status]
+            //formatação de atualizado em..
+            const update = date(order.updated_at)
+            order.FormatUpdatedAt = `${order.FormatStatus} em ${update.day}/${update.mounth}/${update.year}   às   ${update.hour}h ${update.minutes}`
 
-        return res.render("home/index", {products})
+            return order
+        })
+       orders =  await Promise.all(ordersPromise)
+
+        return res.render('pedido/index' , {orders})
+
     },
 }

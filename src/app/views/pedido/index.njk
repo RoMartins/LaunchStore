@@ -1,0 +1,42 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+    <section class="container">
+
+        {% if (orders.length < 1)%}
+            <div class="cartEmpty">
+                <p>Nenhum Pedido</p>
+                <a href="/products/search" class="buttonCart">Comprar</a>
+            </div>
+            {%else%}
+            <h2>Meus Pedidos</h2>
+
+            <div class="items">
+                {% for order in orders %}
+                    <div class="itemOrder">
+                        <div>
+                                <img src="{{order.product.img}}" alt="{{order.product.name}}">
+                            <div class="info">
+                                <div class="title">{{order.product.name}}</div>
+                                <div class="price">{{order.FormatPrice}}</div>
+                                <div class="updateAt">{{order.FormatUpdatedAt}}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="quantity">
+                            Qtd.
+                            {{order.quantity}}
+                        </div>
+                        <div class="Pricetotal">
+                            {{order.FormatTotal}}
+                        </div>
+                        <div class="status {{order.status}}">
+                            {{order.FormatStatus}}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </section>
+{% endblock content %}

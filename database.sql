@@ -83,3 +83,29 @@ on delete cascade;
 ALTER SEQUENCE products_id_seq RESTART WITH 1;
 ALTER SEQUENCE users_id_seq RESTART WITH 1;
 ALTER SEQUENCE files_id_seq RESTART WITH 1;
+
+--create table orders
+
+CREATE TABLE "orders" (
+  "id" SERIAL PRIMARY KEY,
+  "seller_id" int not null,
+  "buyer_id" int not null,
+    "product_id" int not null,
+    "price" int not null,
+    "quantity" int default 0,
+    "total" int not null,
+    "status" text not null,
+  "created_at" timestamp default (now()),
+    "updated_at" timestamp default (now())
+  );
+  
+  ALTER TABLE "orders" add foreign key ("seller_id") references "users"("id");
+  ALTER TABLE "orders" add foreign key ("seller_id") references "users"("id");
+  ALTER TABLE "orders" add foreign key ("seller_id") references "products"("id");
+  
+  CREATE TRIGGER set_timestamp
+  BEFORE UPDATE ON orders
+  FOR EACH ROW
+  EXECUTE PROCEDURE trigger_set_timestamp();
+
+  
