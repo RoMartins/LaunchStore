@@ -1,0 +1,87 @@
+.detailsOrder{
+    .info{
+        @include grid(120px);
+        grid-template-columns: 1fr 1fr 1fr;
+        margin-bottom: 20px;
+        .buyer{
+            font-size: size('14');
+        }
+        .seller{
+            font-size: size('14');
+
+        }
+        h4{
+            color: $fourth-color;
+            font-size: size('12');
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+        }
+    }
+        
+    .status{
+        text-align: right;
+        font-size: size('12');
+        color: $fourth-color;
+        &>p:nth-child(1){
+            font-size: size('16');
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        &.open>p:nth-child(1){
+            color:$second-color;
+        }
+        &.sold>p:nth-child(1){
+            color:rgb(17, 187, 54);
+        }
+        &.canceled>p:nth-child(1){
+            color:red;
+        }
+    }
+
+    .product{
+        display: flex;
+        align-items: center;
+        border-top:  1px solid #eee;
+        border-bottom:  1px solid #eee;
+        padding: 16px 0 ;
+        width: 100%;
+        font-size: size('14');
+        color: #555;
+        font-weight: bold;
+        .name{
+            margin-left: 16px;
+            text-transform: capitalize;
+        }
+        img{
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+        .price{
+            color: #555;
+            font-weight: bold;
+            text-align: right;
+            flex: 1;
+
+            .quantity{
+            font-weight: 300;
+
+            }
+        }
+    }
+    .totalOrder{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        font-size: size('22');
+        font-weight: bold;
+        color: #555;
+        margin-top: 8px;
+        span{
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+    }
+}

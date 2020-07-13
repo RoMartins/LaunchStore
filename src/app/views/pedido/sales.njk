@@ -4,16 +4,16 @@
 
     <section class="container">
 
-        {% if (orders.length ==0 )%}
+        {% if (sales.length == 0 )%}
             <div class="cartEmpty">
-                <p>Nenhum Pedido</p>
-                <a href="/products/search" class="buttonCart">Comprar</a>
+                <p>Nenhuma Venda</p>
+                <a href="/ads/create" class="buttonCart">Crie seu anúncio!</a>
             </div>
             {%else%}
-            <h2>Meus Pedidos</h2>
+            <h2>Minhas Vendas</h2>
 
             <div class="items">
-                {% for order in orders %}
+                {% for order in sales %}
                     <div class="itemOrder">
                         <div>
                                 <img src="{{order.product.img}}" alt="{{order.product.name}}">

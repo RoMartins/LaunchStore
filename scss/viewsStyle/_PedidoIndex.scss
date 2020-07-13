@@ -47,7 +47,7 @@
         padding: 4px 12px;
         color: white;
         &.open{
-            background-color:rgb(77, 247, 238);
+            background-color:$second-color;
         }
         &.sold{
             background-color:rgb(17, 187, 54);

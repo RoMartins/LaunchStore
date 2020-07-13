@@ -1,11 +1,11 @@
 
-const LoadProductsService = require("../services/LoadProductService")
 const User = require ('../models/UserModel') 
 const Order = require ('../models/order') 
-
+const LoadOrderService = require('../services/OrderService')
 const mailer = require("../../lib/mailer")
 const Cart = require("../../lib/cart")
-const { FormatPrice, date } = require("../../lib/functions")
+const LoadProductsService = require("../services/LoadProductService")
+
 
 const email = (seller, product,buyer) => `
 <h2> Olá ${seller.name} </h2>
@@ -24,7 +24,7 @@ const email = (seller, product,buyer) => `
 `
 
 
-module.exports = {
+  module.exports = {
     async post(req, res){
         try {
             //pegar os produtos do carrinho
@@ -86,40 +86,22 @@ module.exports = {
         }
     },
     async index(req,res){
-        //pegar id do comprador
-     const {UserId: buyer_id} = req.session
-        //pegar pedido
-        let orders = await Order.FindAll({where : {buyer_id : buyer_id}})
 
-        const ordersPromise = orders.map(async order =>{
-            //detalhe do produto
-            order.product = await LoadProductsService.load('product', {where:{ id: order.product_id}})
-            //detalhe do comprador
-            order.buyer = await  User.Find(buyer_id)
-            //detalhe do vendedor
-            order.seller = await User.FindOne({
-                where:{id: order.seller_id}
-            })
-            //formatação de preço
-            order.FormatPrice = FormatPrice(order.price) 
-            order.FormatTotal = FormatPrice(order.total)
-
-            //formatação de status
-            const status ={
-                open:'Aberto',
-                sold:'Vendido',
-                canceled:'Cancelado'
-            }
-            order.FormatStatus = status[order.status]
-            //formatação de atualizado em..
-            const update = date(order.updated_at)
-            order.FormatUpdatedAt = `${order.FormatStatus} em ${update.day}/${update.mounth}/${update.year}   às   ${update.hour}h ${update.minutes}`
-
-            return order
-        })
-       orders =  await Promise.all(ordersPromise)
+       const orders = await LoadOrderService.load('orders',{where: {buyer_id: req.session.UserId}})
 
         return res.render('pedido/index' , {orders})
 
     },
+    async sales(req,res){
+
+        const sales = await LoadOrderService.load('orders',{where: {seller_id: req.session.UserId}})
+ 
+         return res.render('pedido/sales' , {sales})
+ 
+     },
+    async show (req, res) {
+        let order = await LoadOrderService.load('order',{where: {id: req.params.id}
+    })
+        return res.render("pedido/details" , {order})
+    }
 }

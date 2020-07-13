@@ -1105,7 +1105,7 @@ section .itemsCart .price {
 }
 
 .itemOrder .status.open {
-  background-color: #4df7ee;
+  background-color: rgba(47, 130, 240, 0.897);
 }
 
 .itemOrder .status.sold {
@@ -1122,6 +1122,118 @@ section .itemsCart .price {
 
 .itemOrder .quantity {
   font-size: 1.4em;
+}
+
+.detailsOrder .info {
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 120px;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  margin-bottom: 20px;
+}
+
+.detailsOrder .info .buyer {
+  font-size: 1.4em;
+}
+
+.detailsOrder .info .seller {
+  font-size: 1.4em;
+}
+
+.detailsOrder .info h4 {
+  color: #777;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.detailsOrder .status {
+  text-align: right;
+  font-size: 1.2em;
+  color: #777;
+}
+
+.detailsOrder .status > p:nth-child(1) {
+  font-size: 1.6em;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.detailsOrder .status.open > p:nth-child(1) {
+  color: rgba(47, 130, 240, 0.897);
+}
+
+.detailsOrder .status.sold > p:nth-child(1) {
+  color: #11bb36;
+}
+
+.detailsOrder .status.canceled > p:nth-child(1) {
+  color: red;
+}
+
+.detailsOrder .product {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 16px 0;
+  width: 100%;
+  font-size: 1.4em;
+  color: #555;
+  font-weight: bold;
+}
+
+.detailsOrder .product .name {
+  margin-left: 16px;
+  text-transform: capitalize;
+}
+
+.detailsOrder .product img {
+  width: 100px;
+  height: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.detailsOrder .product .price {
+  color: #555;
+  font-weight: bold;
+  text-align: right;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.detailsOrder .product .price .quantity {
+  font-weight: 300;
+}
+
+.detailsOrder .totalOrder {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  font-size: 2.2em;
+  font-weight: bold;
+  color: #555;
+  margin-top: 8px;
+}
+
+.detailsOrder .totalOrder span {
+  font-size: 12px;
+  font-weight: 500;
+  margin-right: 8px;
 }
 
 body {
