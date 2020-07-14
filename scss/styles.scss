@@ -8,7 +8,6 @@
 @import '../scss/viewsStyle/ShowProductPage';
 @import '../scss/viewsStyle/home&Search';
 @import '../scss/viewsStyle/Messages';
-@import '../scss/viewsStyle/MenuAccount';
 @import '../scss/viewsStyle/login';
 @import '../scss/viewsStyle/cardAds';
 @import '../scss/viewsStyle/PedidoSuccess';
@@ -105,13 +104,14 @@ nav{
 
     &.primary{
 
-        ul{
+        >ul{
             @include flexCenter(row);
             justify-content: space-between ;
             padding-inline-start: 0px;
 
         }
         li a {
+            font-size: 12px;
             @include flexCenter(row);
             color: white;
             transition: 300ms;

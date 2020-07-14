@@ -103,5 +103,25 @@ const email = (seller, product,buyer) => `
         let order = await LoadOrderService.load('order',{where: {id: req.params.id}
     })
         return res.render("pedido/details" , {order})
+    },
+    async update(req,res){
+        const {id, action} = req.params
+        const acceptedActions = ['close','cancel']
+        if(!acceptedActions.includes(action)) return res.send("Can't do this action")
+    //pegar o pedido
+        const order = await Order.FindOne({where: {id}})
+    // verificar se esta aberto
+        if(order.status != "open")  return res.send("Can't do this action")
+    // atualizar o pedido
+    const status = {
+        close:"sold",
+        cancel:"canceled"
     }
+    order.status = status[action]
+    
+    await Order.update(id, {
+        status : order.status
+    })
+    return res.redirect('/orders/sales')
+    },
 }
