@@ -8,7 +8,7 @@ const User = require ('../models/UserModel')
 
 async function format(order){
        //detalhe do produto
-       order.product = await LoadProductsService.load('product', {where:{ id: order.product_id}})
+       order.product = await LoadProductsService.load('productsDeleted', {where:{ id: order.product_id}})
        //detalhe do comprador
        order.buyer = await  User.FindOne({
         where:{id: order.buyer_id}

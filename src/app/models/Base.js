@@ -40,6 +40,10 @@ const Base = {
         return results.rows[0]
 
     },
+    async FindDeleted(filters){
+        const results = await find (filters, `${this.table}_with_deleted`)
+        return results.rows[0]
+    },
     async FindAll(filters) {
        
         const results = await find(filters, this.table)

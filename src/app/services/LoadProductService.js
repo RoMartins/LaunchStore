@@ -50,6 +50,17 @@ const LoadService = {
         const productsPromise = products.map(format)
         return Promise.all(productsPromise)
     },
+    async productsDeleted(){
+        try {
+            const product =  await ProductModel.FindDeleted(this.filter)
+            
+            return format(product)
+            
+             } catch (error) {
+                console.error(error);
+                
+            }
+    },
     format,
 }
 
